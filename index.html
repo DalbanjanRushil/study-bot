@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>PDF QA Bot</title>
+</head>
+<body>
+  <h2>Select PDF and Ask a Question</h2>
+
+  <form id="askForm">
+    <select id="filename" required></select><br><br>
+    <input type="text" id="question" placeholder="Enter your question" required /><br><br>
+    <button type="submit">Ask</button>
+  </form>
+
+  <pre id="response"></pre>
+
+  <script>
+    async function loadFiles() {
+      const res = await fetch('/api');
+      const data = await res.json();
+      const select = document.getElementById('filename');
+      data.files.forEach(file => {
+        const option = document.createElement('option');
+        option.value = file;
+        option.textContent = file;
+        select.appendChild(option);
+      });
+    }
+
+    document.getElementById('askForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const filename = document.getElementById('filename').value;
+      const question = document.getElementById('question').value;
+
+      const form = new FormData();
+      form.append("filename", filename);
+      form.append("question", question);
+
+      const res = await fetch('/api', { method: 'POST', body: form });
+      const data = await res.json();
+
+      document.getElementById('response').textContent = data.answer || data.error;
+    });
+
+    loadFiles();
+  </script>
+</body>
+</html>

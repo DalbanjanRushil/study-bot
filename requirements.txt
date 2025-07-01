@@ -1,0 +1,8 @@
+fastapi
+uvicorn
+pdfplumber
+python-dotenv
+langchain
+langchain-cohere
+langchain-community
+cohere
