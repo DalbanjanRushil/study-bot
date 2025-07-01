@@ -6,3 +6,5 @@ langchain
 langchain-cohere
 langchain-community
 cohere
+python-multipart
+
