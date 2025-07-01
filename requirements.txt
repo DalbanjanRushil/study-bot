@@ -7,4 +7,6 @@ langchain-cohere
 langchain-community
 cohere
 python-multipart
+faiss-cpu
+
 
